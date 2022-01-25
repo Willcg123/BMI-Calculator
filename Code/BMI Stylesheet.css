@@ -1,0 +1,55 @@
+h1 {
+    font-size: 45px;
+    color: darkblue;
+}
+body {
+    background: #F2F3F5;
+}
+
+[data-tab-info] {
+    display: none;
+}
+
+.calc-button {
+    background-color: forestgreen;
+    color: white;
+    border-color: forestgreen;
+}
+
+.active[data-tab-info] {
+    display: block;
+}
+
+.bold {
+    font-weight: bold;
+}
+.tab-content {
+    font-size: 17px;
+    font-family: "Times New Roman",sans-serif;
+    color: black;
+}
+
+.tabs {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    margin: 0;
+}
+
+.tabs span {
+    background: #9B41E6;
+    padding: 10px;
+    border: 2px solid #F2F3F5;
+}
+
+.tabs span:hover {
+    background: #CBC3E3;
+    cursor: pointer;
+    color: black;
+}
+
+.header2 {
+    font-family: "Times New Roman",sans-serif;
+    font-size: 24px;
+    color: #009EBA;
+}

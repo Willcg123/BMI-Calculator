@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <link href="BMI%20Stylesheet.css" type="text/css" rel="stylesheet">
+</head>
+<h1>Calculate your Body Mass Index</h1>
+<body>
+<div class="tabs">
+    <span data-tab-value="#tab_1">About</span>
+    <span data-tab-value="#tab_2">Standard</span>
+    <span data-tab-value="#tab_3">Metric</span>
+</div>
+
+<div class="tab-content">
+    <div class="tabs__tab active" id="tab_1" data-tab-info>
+        <h2 class="header2">What is BMI?</h2>
+        <p>Body mass index, or BMI, is a measurement used to assess a person's body fat to their weight.
+             BMI does not diagnose the body fatness or health of an individual, it is just a tool used to measure body fat to weight.
+        If you would like an accurate diagnoses please contact your doctor.</p>
+        <figure>
+            <img src="Images/BMI%20Picture.jpg" alt="Graphic for BMI">
+            <figcaption><p>Here is a picture depicting different levels of BMI and how it is calculated</p></figcaption>
+        </figure>
+        <figure>
+            <img src="Images/BMI%20Chart.jpg" class="center" width="700" height="700" alt="Chart">
+            <figcaption><p>For more in depth analysis here is a chart showing each height and weight category and the corresponding BMI.</p></figcaption>
+        </figure>
+    </div>
+
+    <div class="tabs__tab" id="tab_2" data-tab-info>
+        <fieldset>
+        <h2 class="header2">Calculate your BMI using Standard measurements</h2>
+            <p class="bold">Input Your Height: </p>
+        <form>
+            <label class="bold">Feet (ft)
+                <input type="number" id="feet">
+            </label>
+            <br>
+            <label class="bold"> Inches (in)
+                <input type="number" id="inches">
+            </label>
+            <br><br>
+            <label class="bold">Input your weight: <br><br> Pounds (lbs)
+                <input type="number" id="pounds">
+            </label>
+        </form>
+        <br><br>
+        <button onclick="standard_calc()" class="calc-button">Calculate your BMI</button>
+        <p id="BMI_Standard"></p>
+        <p id="advice1"></p>
+        </fieldset>
+        <h2 class="header2">BMI Weight Guide</h2>
+        <p>Severely Underweight = Less than 16</p>
+        <p>Underweight = 16 and 18.5</p>
+        <p>Normal = 18.5 and 25</p>
+        <p>Overweight = 25 and 30</p>
+        <p>Obese = 30 and 35</p>
+        <p>Extremely Obese = Greater than 35</p>
+    </div>
+    <div class="tabs__tab" id="tab_3" data-tab-info>
+        <fieldset>
+            <h2 class="header2">Calculate your BMI using Metric measurements</h2>
+            <p class="bold">Input Your Height: </p>
+            <form>
+                <label class="bold">Meters (m)
+                    <input type="number" id="meters">
+                </label>
+                <br><br>
+                <label class="bold">Input your weight: <br><br> Kilograms (kg)
+                    <input type="number" id="kilograms">
+                </label>
+            </form>
+            <br><br>
+            <button onclick="metric_calc()" class="calc-button">Calculate your BMI</button>
+            <p id="BMI_metric"></p>
+            <p id="advice2"></p>
+        </fieldset>
+        <h2 class="header2">BMI Weight Guide</h2>
+        <p>Severely Underweight = Less than 16</p>
+        <p>Underweight = 16 and 18.5</p>
+        <p>Normal = 18.5 and 25</p>
+        <p>Overweight = 25 and 30</p>
+        <p>Obese = 30 and 35</p>
+        <p>Extremely Obese = Greater than 35</p>
+    </div>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('[data-tab-value]')
+    const tabInfos = document.querySelectorAll('[data-tab-info]')
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = document
+                .querySelector(tab.dataset.tabValue);
+
+            tabInfos.forEach(tabInfo => {
+                tabInfo.classList.remove('active')
+            })
+            target.classList.add('active');
+        })
+    })
+    var severely_underweight, underweight, normal, overweight, obese, extremely_obese, invalid;
+        severely_underweight = "Your BMI indicates that you are severely underweight, I would recommend seeing a doctor or dietitian IMMEDIATELY to get help";
+        underweight = "Your BMI indicates that you are you are underweight, some tips to gain more weight are: " +
+            "1. Making sure to eat 3 full meals a day " +
+            "2. Add more high protein snacks " +
+            "3. Bulk Up by lifting weights to add muscle. " +
+            "For more accurate information on what you can do contact your doctor or dietitian";
+        normal = "Your BMI indicates that you have normal weight for your height."
+        overweight = "Your BMI indicates that you are overweight. some tips to lose weight are:" +
+            "1. Eat healthy foods, avoid high oil and processed foods" +
+            "2. Exercise regularly, whether that is going to the gym or taking a walk" +
+            "3. Avoid snacking throughout the day, or snack on healthier foods such as fruits and nuts"
+        obese = "Your BMI indicates that you are obese. Contact your doctor or dietitian to get help as it may further affect your health."
+        extremely_obese = "Your BMI indicates that you are extremely obese. Please contact your doctor or dietitian IMMEDIATELY as you are more prone to disease and heart conditions."
+        invalid = "It seems you have put in an incorrect measurement please try again."
+
+    var feet, inches, pounds, total_inches, BMI_standard;
+    function standard_calc() {
+        feet = document.getElementById("feet").value;
+        inches = document.getElementById("inches").value;
+        pounds = document.getElementById("pounds").value;
+
+        total_inches = (feet*12) + (inches*1);
+        BMI_standard = (pounds / total_inches / total_inches) * 703;
+
+
+        if (BMI_standard <= 16 && BMI_standard > 0){
+            document.getElementById("BMI_Standard").innerHTML = BMI_standard.toFixed(1);
+            document.getElementById("advice1").innerHTML = severely_underweight;
+        }
+        else if (BMI_standard >16 && BMI_standard <=18.5) {
+            document.getElementById("BMI_Standard").innerHTML = BMI_standard.toFixed(1);
+            document.getElementById("advice1").innerHTML = underweight;
+        }
+        else if (BMI_standard >18.5 && BMI_standard <=25) {
+            document.getElementById("BMI_Standard").innerHTML = BMI_standard.toFixed(1);
+            document.getElementById("advice1").innerHTML = normal;
+        }
+        else if (BMI_standard >25 && BMI_standard <=30) {
+            document.getElementById("BMI_Standard").innerHTML = BMI_standard.toFixed(1);
+            document.getElementById("advice1").innerHTML = overweight;
+        }
+        else if (BMI_standard >30 && BMI_standard <=35){
+            document.getElementById("BMI_Standard").innerHTML = BMI_standard.toFixed(1);
+            document.getElementById("advice1").innerHTML = obese;
+        }
+        else if (BMI_standard >35){
+            document.getElementById("BMI_Standard").innerHTML = BMI_standard.toFixed(1);
+            document.getElementById("advice1").innerHTML = extremely_obese;
+        }
+        else{
+            document.getElementById("BMI_Standard").innerHTML = "";
+            document.getElementById("advice1").innerHTML = invalid;
+        }
+    }
+
+
+    var meters, kilograms, BMI_metric;
+    function metric_calc() {
+        meters = document.getElementById("meters").value;
+        kilograms = document.getElementById("kilograms").value;
+
+        BMI_metric = (kilograms*1)/Math.pow((meters*1),2);
+        console.log(meters);
+        console.log(kilograms);
+        console.log(BMI_metric);
+
+
+        if (BMI_metric <= 16 && BMI_metric > 0){
+            document.getElementById("BMI_metric").innerHTML = BMI_metric.toFixed(1);
+            document.getElementById("advice2").innerHTML = severely_underweight;
+        }
+        else if (BMI_metric >16 && BMI_metric <=18.5) {
+            document.getElementById("BMI_metric").innerHTML = BMI_metric.toFixed(1);
+            document.getElementById("advice2").innerHTML = underweight;
+        }
+        else if (BMI_metric >18.5 && BMI_metric <=25) {
+            document.getElementById("BMI_metric").innerHTML = BMI_metric.toFixed(1);
+            document.getElementById("advice2").innerHTML = normal;
+        }
+        else if (BMI_metric >25 && BMI_metric <=30) {
+            document.getElementById("BMI_metric").innerHTML = BMI_metric.toFixed(1);
+            document.getElementById("advice2").innerHTML = overweight;
+        }
+        else if (BMI_metric >30 && BMI_metric <=35){
+            document.getElementById("BMI_metric").innerHTML = BMI_metric.toFixed(1);
+            document.getElementById("advice2").innerHTML = obese;
+        }
+        else if (BMI_metric >35){
+            document.getElementById("BMI_metric").innerHTML = BMI_metric.toFixed(1);
+            document.getElementById("advice2").innerHTML = extremely_obese;
+        }
+        else{
+            document.getElementById("BMI_metric").innerHTML = "";
+            document.getElementById("advice2").innerHTML = invalid;
+        }
+    }
+</script>
+</body>
+
+</html>
