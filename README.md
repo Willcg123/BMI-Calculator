@@ -10,3 +10,4 @@ Project created with:
   * CSS
 
 ## Setup 
+Download the ZIP and run the HTML document to see the webpage. 
